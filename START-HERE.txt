@@ -20,3 +20,11 @@ GitHub browser upload reference:
 https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github
 Vercel build settings:
 https://vercel.com/docs/builds
+
+SPREADSHEET STUDIO UPGRADE (v2.0.2)
+78 exercises, five workbooks, linked sheets, formatting, validation,
+conditional formatting, pivots, slicers, five chart types, undo/redo,
+record forms, what-if driver testing and fresh timed challenges.
+Before replacing a deployed app, export a progress backup from Resources.
+Upload all extracted contents, including the new lab-tools.js,
+lab-curriculum.js and formula-guide.js files.

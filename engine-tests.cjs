@@ -28,4 +28,127 @@ test('=COUNTA(M1:M6)',5);test('=COUNTA(M6)',1);
 test('=COUNTA(1/0)',1);test('=COUNTA(FALSE,0,"")',3);
 test('=COUNTA(IF(TRUE,"","text"))',1);
 e.set('M7','=COUNTA(M7)');assert.equal(e.get('M7'),'#CYCLE!');checks++;
+// Shared workbook context, quoted names, recalculation and qualified copying.
+const classes={
+  ClassA:{A1:'Name',B1:'Mark1',C1:'Mark2',A2:'Ava',B2:70,C2:80,A3:'Noah',B3:60,C3:75,A4:'Mia',B4:90,C4:95,D2:'=B2+C2'},
+  ClassB:{A1:'Name',B1:'Mark1',C1:'Mark2',A2:'Liam',B2:55,C2:65,A3:'Zoe',B3:85,C3:90},
+  'Class A1':{A1:'Quoted name',A2:12,B2:30,A3:15,B3:40},
+  "O'Brien":{A1:21,A2:22},
+  Summary:{A2:'=ClassA!A2',B2:'=ClassA!B2',C2:'=ClassA!D2',E2:'=SUM(ClassA!B2:B4)'}
+};
+const workbook=new SheetEngine(classes.Summary,{sheets:classes,activeSheet:'Summary'});
+function workbookTest(formula,expected){workbook.set('Z1',formula);assert.equal(workbook.get('Z1'),expected,formula);checks++;}
+assert.equal(workbook.cells,classes.Summary);checks++;
+assert.equal(workbook.sheets,classes);checks++;
+assert.equal(workbook.sheetName,'Summary');checks++;
+assert.equal(workbook.get('A2'),'Ava');checks++;
+assert.equal(workbook.get('B2'),70);checks++;
+assert.equal(workbook.get('C2'),150);checks++;
+assert.equal(workbook.get('E2'),220);checks++;
+classes.ClassA.B2=72;
+assert.equal(workbook.get('B2'),72);checks++;
+assert.equal(workbook.get('C2'),152);checks++;
+assert.equal(workbook.get('E2'),222);checks++;
+const editor=new SheetEngine(classes.ClassA,{sheets:classes,activeSheet:'classa'});
+editor.set('B2',73);assert.equal(workbook.get('B2'),73);checks++;
+workbookTest('=ClassA!B2+ClassB!B2',128);
+workbookTest("='Class A1'!A2",12);
+workbookTest("='O''Brien'!A1",21);
+workbookTest('=classa!b2',73);
+workbookTest('=SUM(ClassA!B2:C3)',288);
+workbookTest('=SUM(ClassA!B2:ClassA!B4)',223);
+workbookTest("=SUM('Class A1'!A2:B3)",97);
+workbookTest('=SUM(Missing!A1:B2)','#REF!');
+workbookTest('=Missing!A1','#REF!');
+workbookTest('=SUM(ClassA!B2:ClassB!B4)','#REF!');
+workbookTest('=IF(TRUE,ClassA!B2,Missing!A1)',73);
+workbookTest('=IF(FALSE,Missing!A1,ClassB!B2)',55);
+workbookTest('=IFERROR(Missing!A1,"Check sheet")','Check sheet');
+assert.equal(workbook.raw('ClassA!D2'),'=B2+C2');checks++;
+assert.equal(workbook.get('ClassA!D2'),153);checks++;
+workbook.set('ClassB!B2',56);assert.equal(classes.ClassB.B2,56);checks++;
+workbook.set('J2',"='Class A1'!$A2+ClassA!B$2+'O''Brien'!$A$1&\"Class A1!A2\"");
+workbook.fill('J2','K3');
+assert.equal(workbook.raw('K3'),"='Class A1'!$A3+ClassA!C$2+'O''Brien'!$A$1&\"Class A1!A2\"");checks++;
+workbook.set('L2','=SUM(ClassA!B2:C3)');workbook.fill('L2','L3');
+assert.equal(workbook.raw('L3'),'=SUM(ClassA!B3:C4)');checks++;
+assert.equal(workbook.get('L3'),320);checks++;
+classes.ClassA.F1='=Summary!F1';classes.Summary.F1='=ClassA!F1';
+assert.equal(workbook.get('F1'),'#CYCLE!');checks++;
+assert.equal(editor.get('F1'),'#CYCLE!');checks++;
+classes.ClassA.F2='=F2';workbookTest('=SUM(ClassA!F2:F3)','#CYCLE!');
+// Same coordinates on different sheets do not constitute a cycle.
+classes.ClassA.G1='=ClassB!G1';classes.ClassB.G1=9;
+workbookTest('=ClassA!G1',9);
+classes.ClassA.G1='=G2';classes.ClassA.G2=11;classes.Summary.G2=100;
+workbookTest('=ClassA!G1',11);
+classes.ClassB.H1='=""';
+workbookTest('=COUNTA(ClassB!H1:H2)',1);
+workbookTest('=COUNTBLANK(ClassB!H1:H2)',2);
+workbookTest('=VLOOKUP("Mia",ClassA!A2:C4,2,FALSE)',90);
+workbookTest('=INDEX(ClassA!B2:B4,MATCH("Noah",ClassA!A2:A4,0))',60);
+// Multiple simultaneous criteria must align in both dimensions.
+const multi=new SheetEngine({A2:'North',B2:'Express',C2:10,D2:2,A3:'North',B3:'Standard',C3:20,D3:3,A4:'South',B4:'Express',C4:30,D4:4,A5:'North',B5:'Express',C5:40,D5:5,A6:'West',B6:'Standard',C6:50,D6:6,F1:'North'});
+function multiTest(formula,expected){multi.set('Z1',formula);assert.equal(multi.get('Z1'),expected,formula);checks++;}
+multiTest('=COUNTIFS(A2:A6,"North",B2:B6,"Express")',2);
+multiTest('=SUMIFS(C2:C6,A2:A6,"North",B2:B6,"Express")',50);
+multiTest('=AVERAGEIFS(C2:C6,A2:A6,"North",B2:B6,"Express")',25);
+multiTest('=COUNTIFS(A2:A6,F1,C2:C6,">="&20)',2);
+multiTest('=SUMIFS(D2:D6,B2:B6,"Express",C2:C6,">20")',9);
+multiTest('=COUNTIFS(A2:A6,"N*",B2:B6,"?xpress")',2);
+multiTest('=SUMIFS(C2:C6,A2:A6,"Missing")',0);
+multiTest('=COUNTIFS(A2:A6,"Missing")',0);
+multiTest('=AVERAGEIFS(C2:C6,A2:A6,"Missing")','#DIV/0!');
+multiTest('=SUMIFS(C2:C6,A2:A5,"North")','#VALUE!');
+multiTest('=COUNTIFS(A2:A6,"North",B2:B5,"Express")','#VALUE!');
+multiTest('=AVERAGEIFS(C2:C6,A2:A5,"North")','#VALUE!');
+multiTest('=COUNTIFS(A2:A6)','#VALUE!');
+multiTest('=SUMIFS(C2:C6,A2:A6)','#VALUE!');
+multiTest('=COUNTIFS(A2:A3,"North",C2:D2,">0")','#VALUE!');
+multiTest('=SUMIFS(C2:C3,A2:B2,"North")','#VALUE!');
+multiTest('=AVERAGEIFS(C2:C3,A2:B2,"North")','#VALUE!');
+// New statistical, text and exact-lookup tools.
+multiTest('=MEDIAN(C2:C6)',30);
+multiTest('=MEDIAN(C2:C5)',25);
+multiTest('=MEDIAN(9,1,7,3)',5);
+multiTest('=MEDIAN(F10:F12)','#NUM!');
+multiTest('=LEN("North zone")',10);
+multiTest('=LEN(TRUE)',4);
+multiTest('=LEN(F10)',0);
+multiTest('=LEFT("D108",1)','D');
+multiTest('=LEFT("D108")','D');
+multiTest('=RIGHT("D108",3)','108');
+multiTest('=RIGHT("D108")','8');
+multiTest('=LEFT("D108",0)','');
+multiTest('=RIGHT("D108",0)','');
+multiTest('=RIGHT("D108",9)','D108');
+multiTest('=LEFT("D108",-1)','#VALUE!');
+multiTest('=ABS(-11.4)',11.4);
+multiTest('=ABS(C2-C5)',30);
+multiTest('=XLOOKUP(40,C2:C6,A2:A6)','North');
+multiTest('=XLOOKUP(50,C2:C6,A2:A6,"Missing")','West');
+multiTest('=XLOOKUP(99,C2:C6,A2:A6,"Missing")','Missing');
+multiTest('=XLOOKUP(99,C2:C6,A2:A6)','#N/A');
+multiTest('=XLOOKUP(40,C2:C6,A2:A6,1/0)','North');
+multiTest('=XLOOKUP(99,C2:C6,A2:A6,1/0)','#DIV/0!');
+multiTest('=XLOOKUP(40,C2:C6,A2:A5)','#VALUE!');
+multiTest('=XLOOKUP("Express",B2:B6,C2:C6)',10);
+multiTest('=XLOOKUP("express",B2:B6,C2:C6)',10);
+multiTest('=XLOOKUP("*",B2:B6,C2:C6,"No wildcard")','No wildcard');
+multiTest('=XLOOKUP("North",A2:B3,C2:D3)','#VALUE!');
+multi.set('J1','=""');multi.set('J2',0);multi.set('J3',false);multi.set('J4','=1/0');
+multiTest('=COUNTBLANK(J1:J5)',2);
+multiTest('=COUNTA(J1:J5)',4);
+multiTest('=MEDIAN(TRUE,"3",5)',3);
+multiTest('=MEDIAN("text",5)','#VALUE!');
+multiTest('=LEFT("D108",-0.5)','#VALUE!');
+multiTest('=RIGHT("D108",-0.5)','#VALUE!');
+multiTest('=LEN("📊x")',2);
+multiTest('=LEFT("📊x",1)','📊');
+multiTest('=RIGHT("x📊",1)','📊');
+workbookTest('=SUMIFS(ClassA!B2:B4,ClassA!A2:A4,"Mia")',90);
+workbookTest('=AVERAGEIFS(ClassA!B2:B4,ClassA!A2:A4,"Mia")',90);
+workbookTest('=COUNTIFS(ClassA!A2:A4,"Mia",ClassA!B2:B4,">80")',1);
+multi.set('F8','Code');multi.set('G8','A1');multi.set('H8','B2');multi.set('F9','One');multi.set('G9',7);multi.set('H9',8);
+multiTest('=XLOOKUP("A1",F8:H8,F9:H9)',7);
 console.log(checks+' spreadsheet checks passed');
