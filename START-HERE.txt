@@ -1,0 +1,22 @@
+START HERE: GITHUB AND VERCEL
+
+1. Double-click Enterprise-Study-Vercel.zip to extract it.
+2. Open the extracted enterprise-study-vercel folder.
+3. In GitHub choose Add file > Upload files.
+4. Drag ALL CONTENTS of enterprise-study-vercel into GitHub: index.html,
+   app.js, the other files, and the resources folder.
+   Do not upload Enterprise-Study-Vercel.zip itself.
+5. Commit. In the repository root you should see index.html directly.
+6. Import the repository into Vercel. Framework: Other. Build command: blank.
+   Output directory: . (repository root). Deploy.
+
+This package preserves the complete study app, notes, spreadsheet engine,
+lessons, quizzes, flashcards, mocks and progress tools. It omits the five
+large weekly PDF duplicates and links to the original Canvas lessons.
+The assessment PDF, spreadsheet tutorial, glossary and dashboard archive
+remain included. Keep the original full study ZIP for offline weekly PDFs.
+
+GitHub browser upload reference:
+https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github
+Vercel build settings:
+https://vercel.com/docs/builds

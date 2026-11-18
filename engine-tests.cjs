@@ -1,0 +1,31 @@
+const assert=require('node:assert/strict');
+const SheetEngine=require('./sheet-engine.js');
+const e=new SheetEngine({A1:'Zone',B1:'Minutes',C1:'ID',A2:'North',B2:20,C2:'T1',A3:'South',B3:50,C3:'T2',A4:'North',B4:40,C4:'T3',B5:'',B6:'unknown',F1:30});
+let checks=0;
+function test(formula,expected){e.set('Z1',formula);assert.equal(e.get('Z1'),expected,formula);checks++;}
+test('=SUM(B2:B6)',110);test('=AVERAGE(B2:B6)',110/3);test('=COUNT(B2:B6)',3);test('=COUNTA(B2:B6)',4);test('=MIN(B2:B4)',20);test('=MAX(B2:B4)',50);
+test('=AVERAGEIF(A2:A4,"North",B2:B4)',30);test('=COUNTIF(A2:A4,"North")',2);test('=SUMIF(A2:A4,"North",B2:B4)',60);test('=COUNTIF(B2:B4,">=40")',2);test('=COUNTIF(A2:A4,"N*")',2);
+test('=IF(B2<=20,"Within limit","Over limit")','Within limit');test('=IF(AND(B2>=20,B2<=40),"Yes","No")','Yes');test('=IF(OR(B3<20,B3>40),"Yes","No")','Yes');test('=NOT(FALSE)',true);test('=IF(TRUE,42,1/0)',42);test('=IF(FALSE,1/0,42)',42);test('=IFERROR(1/0,"Check")','Check');test('=IFERROR(AVERAGEIF(A2:A4,"Missing",B2:B4),0)',0);
+test('=VLOOKUP("T2",C2:D4,1,FALSE)','T2');e.set('D2',20);e.set('D3',50);e.set('D4',40);test('=VLOOKUP("T2",C2:D4,2,FALSE)',50);test('=VLOOKUP("T9",C2:D4,2,FALSE)','#N/A');test('=INDEX(B2:B4,MATCH("T3",C2:C4,0))',40);
+test('=B2*$F$1',600);e.set('E2','=B2*$F$1');e.fill('E2','E3');assert.equal(e.raw('E3'),'=B3*$F$1');assert.equal(e.get('E3'),1500);checks++;
+e.set('E5','=B2+$F2+F$1+$F$1&"A1 and ""B2"""');e.fill('E5','F6');assert.equal(e.raw('F6'),'=C3+$F3+G$1+$F$1&"A1 and ""B2"""');checks++;
+test('=SUM(B2:B4)',110);e.hiddenRows.add(3);test('=SUBTOTAL(9,B2:B4)',60);test('=SUBTOTAL(109,B2:B4)',60);test('=SUBTOTAL(1,B2:B4)',30);test('=SUM(B2:B4)',110);
+test('=ROUND(2.345,2)',2.35);test('=CONCATENATE("North"," ","zone")','North zone');test('=TRIM("  North   zone  ")','North zone');test('=UPPER("north")','NORTH');test('=LOWER("NORTH")','north');test('=2+3*4',14);test('=(2+3)*4',20);test('=50%*80',40);test('=1/0','#DIV/0!');test('=NOTAFUNCTION(1)','#NAME?');test('=VLOOKUP("T2",C2:D4,9,FALSE)','#REF!');
+e.set('K1','=K2');e.set('K2','=K1');assert.equal(e.get('K1'),'#CYCLE!');checks++;assert.deepEqual(SheetEngine.refParts('$AB$12'),{col:27,row:12,absCol:true,absRow:true});checks++;assert.equal(SheetEngine.letters(27),'AB');checks++;
+test('=COUNTIF(B2:B4,">"&B2)',2);
+test('=AVERAGEIF(B2:B4,">20")',45);
+test('=IFERROR(INDEX(B2:B4,MATCH("Missing",C2:C4,0)),"Missing")','Missing');
+test('=SUM(A1:A1000001)','#REF!');
+test('=window.alert(1)','#NAME?');
+test('=IF(AND(B2>=20,B2<=40),SUM(B2:B4),0)',110);
+test('=SUM(B2:B4)+MAX(B2:B4)',160);
+// COUNTA counts occupied cells even when their formula displays nothing.
+e.set('M1','=""');e.set('M2','');e.set('M3','=IF(TRUE,"","text")');
+e.set('M4',0);e.set('M5',false);e.set('M6','=1/0');
+test('=COUNTA(M1:M2)',1);test('=COUNTA("")',1);
+test('=COUNTA(M2)',0);test('=COUNTA(M1)',1);
+test('=COUNTA(M1:M6)',5);test('=COUNTA(M6)',1);
+test('=COUNTA(1/0)',1);test('=COUNTA(FALSE,0,"")',3);
+test('=COUNTA(IF(TRUE,"","text"))',1);
+e.set('M7','=COUNTA(M7)');assert.equal(e.get('M7'),'#CYCLE!');checks++;
+console.log(checks+' spreadsheet checks passed');
