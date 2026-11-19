@@ -34,15 +34,16 @@ Official deployment references:
 ## What is included
 
 - 18-day adjustable programme with class examination dates and daily mastery checkpoints.
-- 12 original teaching modules, approximately 5,500 words, with worked examples and practice prompts.
-- 78 spreadsheet exercises across five practice workbooks, linked worksheets, range selection, undo/redo, formatting, validation, cleaning, multi-level sorts, pivots, slicers, five chart types, forms and what-if practice.
+- 24 original teaching modules, approximately 12,000 words, with worked examples and practice prompts.
+- 90 spreadsheet exercises across six practice workbooks, linked worksheets, range selection, undo/redo, formatting, validation, cleaning, multi-level sorts, pivots, slicers, five chart types, forms and what-if practice.
 - Timed, generated unseen challenges and a searchable guide with 31 formula/reference entries plus 16 practical walkthroughs.
-- 42 multiple-choice questions with explanations and a targeted set of previously missed questions.
-- 32 flashcards with 1/3/7/14-day review intervals.
+- 72 multiple-choice questions with explanations and a targeted set of previously missed questions.
+- 56 flashcards with 1/3/7/14-day review intervals.
+- A Booklet 2 companion with 23 mapped sections, 11 new note modules, chart-scale/outlier experiments, an OLAP explorer, an editable forecast-error lab and 23 saved written-response prompts with revision guides.
 - A dashboard decision lab with rates, totals, missing-data reasoning, written prompts and a transparent what-if calculation.
-- Two original 80-minute practice assessments,40 marks each, unseen datasets, chart and dashboard evidence, saved responses, worked solutions and suggested self-marking rubrics.
-- A corrected 37-term glossary, searchable notes, printable modules, mistake log, dark mode and progress backup/restore.
-- Bundled assessment notification, spreadsheet tutorial, original glossary and dashboard archive. Weeks1–5 open through Canvas links, keeping this deployment package small.
+- Three original 80-minute practice assessments,40 marks each, unseen datasets, chart and dashboard evidence, saved responses, worked solutions and suggested self-marking rubrics.
+- A corrected 58-term glossary, searchable notes, printable modules, mistake log, dark mode and progress backup/restore.
+- Bundled assessment notification, spreadsheet tutorial, original glossary, dashboard archive and an upright compressed Booklet 2 reading copy. Weeks1–5 open through Canvas links, keeping this deployment package small.
 
 The broader Year 12 Intelligent Systems and Enterprise Project areas do not yet have dedicated courses in this version. This package focuses on your first Data Science and Visualisation assessment and the supplied course content.
 
@@ -70,19 +71,19 @@ There are no analytics, logins, remote AI calls or third-party JavaScript librar
 
 The grid is a focused learning simulator, not Microsoft Excel. Supports same-sheet and cross-sheet references, arithmetic, ranges, absolute/mixed references, SUM, AVERAGE, MIN, MAX, COUNT, COUNTA, COUNTIF, SUMIF, AVERAGEIF, IF, AND, OR, NOT, ROUND, IFERROR, VLOOKUP, INDEX, MATCH, CONCATENATE, CONCAT, TRIM, UPPER, LOWER and SUBTOTAL. Additional functions: SUMIFS, COUNTIFS, AVERAGEIFS, MEDIAN, COUNTBLANK, XLOOKUP, LEN, LEFT, RIGHT and ABS. No eval or remote code execution is used.
 
-Sort view preserves original cell addresses. A separate sorted-values copy keeps whole records together while retaining the source. Excel’s native Sort behaviour differs for dependent references. The app states this distinction. CSV export saves current values, while the progress backup retains raw formulas. CSV imports accept up to 100 data rows and 11 columns. The bundled original XLSX workbook is available inside the resource archive and should be opened in Excel.
+Sort view preserves original cell addresses. A separate sorted-values copy keeps whole records together while retaining the source. Excel’s native Sort behaviour differs for dependent references. The app states this distinction. CSV export saves current values, while the progress backup retains raw formulas. The grid is bounded to 120 total rows and 16 columns; imported headings and records must fit within that range. The bundled original XLSX workbook is available inside the resource archive and should be opened in Excel.
 
 A green formula corner is a visual cue. The summary builder demonstrates grouped aggregation; it does not reproduce Excel’s entire native PivotTable interface. Repeat those operations in Excel Online, the software used in the assessment.
 
 ## Source basis
 
-The supplied assessment notification, Spreadsheet Skills tutorial, Weeks 1–5 and glossary establish the school scope. Original explanations and practice scenarios are added for learning. The attached dashboard archive is preserved unchanged; its screenshots and workbook are supporting resources, not evidence of what will appear in the exam.
+The supplied assessment notification, Spreadsheet Skills tutorial, Weeks 1–5, glossary and Booklet 2 establish the school scope. Original explanations and practice scenarios are added for learning. The attached dashboard archive is preserved unchanged; its screenshots and workbook are supporting resources, not evidence of what will appear in the exam.
 
 Official Microsoft formula documentation and NESA syllabus links are included in the app. Check teacher advice if menus, school permissions or assessment conditions change. Use only teacher-authorised resources during the actual supervised assessment; the notification forbids generative AI, prepared notes and prior solutions in that session.
 
 ## Verification
 
-Formula-engine regression tests: run `node engine-tests.cjs` (159 checks). Exercise and lab helper regressions: run `node lab-tests.cjs` (56 guided formula/linked exercises, generated challenge answers, validation, CSV, selections and fill checks). Syntax checks use `node --check` on JavaScript files. Browser checks covered formula entry, conditional averages, two-column filtering, visible subtotals, guided feedback, dashboards, quizzes, flashcards, mock timing and answer review, self-marking, saved mistakes and note search. Vercel deployment itself must be completed in your own account.
+Formula-engine regression tests: run `node engine-tests.cjs` (159 checks). Exercise and lab helper regressions: run `node lab-tests.cjs` (66 guided formula/linked exercises, generated challenge answers, validation, CSV, selections and fill checks). Syntax checks use `node --check` on JavaScript files. Browser checks covered formula entry, conditional averages, two-column filtering, visible subtotals, guided feedback, dashboards, quizzes, flashcards, mock timing and answer review, self-marking, saved mistakes and note search. Vercel deployment itself must be completed in your own account.
 
 ## Spreadsheet Studio v2
 
@@ -93,3 +94,25 @@ Click to select a cell; double-click or press F2 to edit. Shift-click or type a 
 Formula checking compares the requested calculation and probes relevant source values in disposable copies to catch hardcoded matching results. Guided and independent completions are tracked separately. Written interpretation still requires your own judgement. Export a progress backup before moving to a different URL or browser.
 
 The app intentionally does not reproduce all native Excel behaviour: native Goal Seek, Scenario Manager, full date handling, PivotTable dialogs and complex charts still need practice in Excel Online or the authorised desktop software. The 16-stage guide explains the relevant workflow and alternatives.
+
+## Booklet 2 update (v2.1.0)
+
+Open **Booklet 2 companion** from the sidebar. Its guide maps all 23 section headings in the supplied 24-scan document to explanations and source pages. The original repeats the number 26 for Legal Issues; the map preserves this distinction. The bundled reading copy contains 47 upright single pages, approximately 11.3 MB. It is a compressed derivative; the original upload remains unchanged. Some source illustrations have repeated labels or unclear units, so the notes explain how to critique and verify them. Handwriting in the scan is not treated as an official answer key.
+
+Chart clinic demonstrates bar baselines and transparent outlier sensitivity. OLAP explorer uses 18 fictional monthly product/region records to demonstrate measures, dimensions, filters, pivoting, roll-up and access to underlying records. Forecast lab applies a supplied teaching rule and measures errors; it does not train a model or calculate confidence intervals. Written practice saves answers, optional criteria checks, self-marks and mistake-log entries.
+
+The sixth spreadsheet workbook, Forecast review, provides 12 checkpoints on signed/absolute error, totals, mean absolute error, median, COUNTIF, VLOOKUP, IF, linked-sheet prediction, conditional formatting and charts. Existing progress remains compatible; export a backup before changing the app URL. The progress backup now also contains Booklet 2 responses and experiment settings.
+
+Run `npm test` for the formula engine, guided workbook checks and Booklet 2 coverage/mathematics checks. New browser checks include baseline changes, outlier summaries, OLAP subsets, forecasts, invalid inputs and saved written responses.
+
+## Teacher guidance update (v2.2.0)
+
+Open Test priorities and likely question types in Learn & revise, or use the home-page Test priorities button. The note distinguishes confirmed assessment structure from evidence-based question predictions. It maps all five spreadsheet modules (16 lessons) and Booklet 2 Lessons14–19, and explains the school Dispatch Performance / IT Support Ticket practice sequence. Confidence levels are qualitative, not numerical probabilities.
+
+Mock3 is a new original40-mark service-desk rehearsal:24 spreadsheet marks and16 dashboard/enterprise marks. Its twelve-record CSV is available in Resources and in `resources/teacher-focus-dataset.csv`. The separate dashboard uses a different four-week population; the paper asks students to keep that scope distinction clear. Answer guides appear only after finishing the timed paper.
+
+`Exam-Predictions.html` is a lightweight readable companion with the priorities, practice data, questions and revealable answer guides. It opens on its own; its links to the timed app and CSV work when kept with the extracted folder.
+
+The guidance prioritises combined filters, conditional means, exact lookups, IF rules, target changes, chart interpretation, numerical recommendations, limitations and operational effects. It does not claim the actual test questions, function list, enterprise or individual marks are known. Rehearse in the Excel version and lockdown workflow authorised by the teacher. The notification names Excel Online and submission through Canvas.
+
+Additional verification: `node exam-focus-tests.cjs` checks the paper’s section totals, CSV record count, selection results, formula answers, fixed-target change and dashboard comparisons.

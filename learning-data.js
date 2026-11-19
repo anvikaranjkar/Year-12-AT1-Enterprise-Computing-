@@ -49,7 +49,7 @@ window.STUDY_PLAN=[
   ],
   [
     "Charts and pivot summaries",
-    "Read chart notes; do lesson 14 and use the summary builder.",
+    "Read chart notes and Booklet 2 Visual stories. Do Harbour Dispatch lessons 17–18, then try Chart clinic.",
     "Compare two figures with a difference and a unit.",
     "Visualisation"
   ],
@@ -61,25 +61,25 @@ window.STUDY_PLAN=[
   ],
   [
     "Quality, limitations and bias",
-    "Read data evaluation; evaluate a weekday-only survey.",
+    "Read data evaluation and Booklet 2 Errors and bias. Evaluate a weekday-only survey and try the outlier experiment.",
     "Write limitation → decision impact → improvement.",
     "Data quality"
   ],
   [
     "Dashboard recommendations",
-    "Read dashboard notes and complete the dashboard lab. Rewrite after self-marking.",
+    "Read dashboard and Booklet 2 UX notes. Complete the dashboard lab, then one Booklet 2 written response.",
     "Support a recommendation with exact figures and a qualified conclusion.",
     "Enterprise analysis"
   ],
   [
     "Databases and system changes",
-    "Read relational databases and integration. Practise SELECT/WHERE and transfer checks.",
+    "Read databases and Booklet 2 warehousing. Try the OLAP explorer and forecast lab; practise the Forecast review workbook.",
     "Explain mechanism, benefit, operational risk and mitigation.",
     "Systems"
   ],
   [
     "Ethics and inclusive design",
-    "Read security, ethics, ICIP and technology impacts. Finish all quiz topics.",
+    "Review Booklet 2 security, governance, social behaviour and technology concepts. Use targeted quizzes and explain one risk/control per topic.",
     "Give a scenario-specific risk and a suitable control.",
     "Responsible data"
   ],

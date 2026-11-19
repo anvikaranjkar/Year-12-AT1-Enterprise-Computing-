@@ -14,17 +14,30 @@ This package preserves the complete study app, notes, spreadsheet engine,
 lessons, quizzes, flashcards, mocks and progress tools. It omits the five
 large weekly PDF duplicates and links to the original Canvas lessons.
 The assessment PDF, spreadsheet tutorial, glossary and dashboard archive
-remain included. Keep the original full study ZIP for offline weekly PDFs.
+remain included. An upright compressed Booklet 2 reading copy is included too. Keep the original full study ZIP for offline weekly PDFs.
 
 GitHub browser upload reference:
 https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github
 Vercel build settings:
 https://vercel.com/docs/builds
 
-SPREADSHEET STUDIO UPGRADE (v2.0.2)
-78 exercises, five workbooks, linked sheets, formatting, validation,
+BOOKLET 2 AND SPREADSHEET UPGRADE (v2.1.0)
+90 exercises, six workbooks, linked sheets, formatting, validation,
 conditional formatting, pivots, slicers, five chart types, undo/redo,
 record forms, what-if driver testing and fresh timed challenges.
 Before replacing a deployed app, export a progress backup from Resources.
 Upload all extracted contents, including the new lab-tools.js,
 lab-curriculum.js and formula-guide.js files.
+
+Open Booklet 2 companion for 11 new detailed lessons, interactive chart,
+outlier, OLAP and forecast experiments, plus 23 written practice prompts.
+The app now contains 23 note modules, 72 quiz questions and 56 flashcards.
+Include all booklet-*.js files and resources/booklet-two.pdf when uploading.
+
+TEACHER GUIDANCE UPDATE (v2.2.0)
+Open Test priorities from the home page or Learn & revise.
+New Mock3 follows the teacher’s practical skill guidance:80 minutes,40 marks.
+Use Excel for the CSV, then record formulas, results and written answers.
+Exam-Predictions.html is a lightweight readable guide with the new paper.
+Predictions are evidence-based practice, not access to the actual test.
+Include exam-focus.js and resources/teacher-focus-dataset.csv when updating.
