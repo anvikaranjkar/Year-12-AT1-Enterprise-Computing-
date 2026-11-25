@@ -41,3 +41,8 @@ Use Excel for the CSV, then record formulas, results and written answers.
 Exam-Predictions.html is a lightweight readable guide with the new paper.
 Predictions are evidence-based practice, not access to the actual test.
 Include exam-focus.js and resources/teacher-focus-dataset.csv when updating.
+
+LATEST: 2.3.0
+Use Exam preparation in the sidebar. Start with the cheat sheet, practise graph choices and Part A explanations, then Teacher practice and Mock 4. The five weekly PDF sources are included.
+
+New spreadsheet workbook: Statistics and Horizontal Lookups (10 checkpoints).

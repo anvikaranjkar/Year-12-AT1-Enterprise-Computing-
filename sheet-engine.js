@@ -315,6 +315,20 @@
         }
         if (!found) fail('#N/A'); return check(found[index - 1]);
       }
+      if (name === 'HLOOKUP') {
+        count(3, 4);
+        const lookup = check(single(0)), range = isRange(evaluate(1)), index = numeric(single(2)), approximate = nodes[3] ? logical(single(3)) : true;
+        if (!Number.isInteger(index) || index < 1) fail('#VALUE!');
+        if (index > range.values.length) fail('#REF!');
+        let found = -1;
+        for (let col = 0; col < range.values[0].length; col++) {
+          const value = check(range.values[0][col]);
+          if (equal(value, lookup)) { found = col; break; }
+          if (approximate && compare(value, lookup, '<=')) found = col;
+        }
+        if (found < 0) fail('#N/A');
+        return check(range.values[index - 1][found]);
+      }
       if (name === 'XLOOKUP') {
         count(3, 4);
         const lookup = check(single(0)), search = isRange(evaluate(1)), result = isRange(evaluate(2));
@@ -367,23 +381,46 @@
         if (!numbers.length) fail('#DIV/0!'); return sum / numbers.length;
       }
       if (name === 'SUBTOTAL') {
-        count(2, 30); const code = numeric(single(0)); if (![1, 9, 101, 109].includes(code)) fail('#VALUE!');
-        const values = [];
+        count(2, 30); const code = numeric(single(0)); if (![1, 2, 3, 9, 101, 102, 103, 109].includes(code)) fail('#VALUE!');
+        const values = []; let nonempty = 0;
         for (let i = 1; i < nodes.length; i++) {
           const range = evaluate(i);
           if (range && range.range) {
             const hidden = range.sheet === this.sheetName ? this.hiddenRows : this.hiddenRowsBySheet[range.sheet] || new Set();
             for (let row = 0; row < range.values.length; row++) for (let col = 0; col < range.values[row].length; col++) {
               const ref = range.refs[row][col];
-              if (!hidden.has(SheetEngine.refParts(ref).row) && !/^=\s*SUBTOTAL\(/i.test(String(this.rawAt(ref, range.sheet)))) values.push(range.values[row][col]);
+              const raw = this.rawAt(ref, range.sheet);
+              if (!hidden.has(SheetEngine.refParts(ref).row) && !/^=\s*SUBTOTAL\(/i.test(String(raw))) {
+                values.push(range.values[row][col]); if (raw !== '' && raw != null) nonempty++;
+              }
             }
-          } else values.push(range);
+          } else { values.push(range); if (range !== '' && range != null) nonempty++; }
         }
+        if (values.includes('#CYCLE!')) fail('#CYCLE!');
+        if (code === 3 || code === 103) return nonempty;
+        if (code === 2 || code === 102) return values.filter(value => typeof value === 'number').length;
         const numbers = values.map(check).filter(value => typeof value === 'number'), sum = numbers.reduce((a, b) => a + b, 0);
         if (code === 9 || code === 109) return sum;
         if (!numbers.length) fail('#DIV/0!'); return sum / numbers.length;
       }
       const args = nodes.map(node => this.evaluate(node, stack, context));
+      if (['MODE', 'MODE.SNGL', 'STDEV', 'STDEV.S', 'STDEV.P'].includes(name)) {
+        count(1, 100);
+        const numbers = args.flatMap((value, index) => {
+          const items = flat(value).map(check);
+          return value && value.range || nodes[index].type === 'ref' ? items.filter(item => typeof item === 'number') : items.map(numeric);
+        });
+        if (name === 'MODE' || name === 'MODE.SNGL') {
+          const frequencies = new Map(); let highest = 0;
+          for (const value of numbers) { const n = (frequencies.get(value) || 0) + 1; frequencies.set(value, n); highest = Math.max(highest, n); }
+          if (highest < 2) fail('#N/A');
+          return Math.min(...[...frequencies].filter(([,n]) => n === highest).map(([v]) => v));
+        }
+        const sample = name !== 'STDEV.P';
+        if (numbers.length < (sample ? 2 : 1)) fail('#DIV/0!');
+        const mean = numbers.reduce((a,b) => a+b, 0) / numbers.length;
+        return Math.sqrt(numbers.reduce((n,v) => n + (v-mean)**2, 0) / (numbers.length-(sample ? 1 : 0)));
+      }
       if (['SUM', 'AVERAGE', 'MIN', 'MAX', 'COUNT', 'MEDIAN'].includes(name)) {
         count(1, 100);
         const numbers = name === 'MEDIAN' ? args.flatMap((value, index) => {

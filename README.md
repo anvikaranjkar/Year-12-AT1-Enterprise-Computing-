@@ -116,3 +116,12 @@ Mock3 is a new original40-mark service-desk rehearsal:24 spreadsheet marks and16
 The guidance prioritises combined filters, conditional means, exact lookups, IF rules, target changes, chart interpretation, numerical recommendations, limitations and operational effects. It does not claim the actual test questions, function list, enterprise or individual marks are known. Rehearse in the Excel version and lockdown workflow authorised by the teacher. The notification names Excel Online and submission through Canvas.
 
 Additional verification: `node exam-focus-tests.cjs` checks the paper’s section totals, CSV record count, selection results, formula answers, fixed-target change and dashboard comparisons.
+
+
+Version 2.3.0: Exam preparation
+-----------------------------
+Open Exam preparation in the sidebar: full cheat sheet, graph choices, 21 justification prompts, 24 teacher activity-family sets, all 16 tutorial links and Mock 4. The five original weekly PDFs and dashboard workbook/template/screenshots are bundled. Some separate Canvas HTML labs and quiz datasets require the original school links; UX Evaluation Lab is a placeholder in the supplied PDF. Revision guides are original, not official answers. Existing progress IDs and the browser storage key are retained. New writing is included in progress backups.
+
+This package is larger because it retains the weekly sources. Extract the ZIP and upload its CONTENTS to your Vercel repository; do not upload the ZIP itself. No individual packaged source file exceeds 25 MiB. Keep index.html at the repository root; use Framework Other, no build command and repository root output. A local edit does not update an already deployed Vercel URL until you redeploy it.
+
+Statistics practice: a seventh workbook adds 10 checkpoints for MODE/MODE.SNGL, STDEV/STDEV.S, STDEV.P, HLOOKUP and visible counts. The engine now supports these functions and SUBTOTAL count codes, with regression coverage. There are 100 spreadsheet checkpoints in total.
