@@ -1,0 +1,19 @@
+USE ENTERPRISE-WEB-UPLOAD
+
+On your Mac the new lightweight project is:
+Documents > ChatGPT > Enterprise computing > Enterprise-Web-Upload
+
+Use this folder for repository commits. It starts with a fresh local Git
+history and contains no large PDFs, screenshot PNGs or nested ZIPs.
+All included files are under 100 KB.
+
+For GitHub browser uploads, create an empty repository, then drag the
+CONTENTS of Enterprise-Web-Upload into Add file > Upload files. Include
+resources and all script/style files. index.html must be at the root.
+
+Do not upload the ZIP itself. Do not select the older DEPLOY-THIS-FOLDER,
+Latest-Enterprise-Study or the parent Enterprise computing folder.
+Those full offline copies still contain the large source documents.
+
+In Vercel: import the new GitHub repository, Framework Other, Build Command
+empty, Output Directory . if required. No secrets or API keys are needed.

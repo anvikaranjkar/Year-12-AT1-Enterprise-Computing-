@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict'),fs=require('node:fs');
 global.window=global;
-for(const f of ['content-notes','practice-content','sheet-engine','learning-data','lab-curriculum','statistics-practice','booklet-lab','booklet-data','exam-focus','cheat-sheet-data','exam-coach-data','justification-mock'])require('./'+f+'.js');
+for(const f of ['resource-links','content-notes','practice-content','sheet-engine','learning-data','lab-curriculum','statistics-practice','booklet-lab','booklet-data','exam-focus','cheat-sheet-data','exam-coach-data','justification-mock'])require('./'+f+'.js');
 const D=EXAM_COACH_DATA,m=MOCKS.find(x=>x.id==='justify-retail');
 assert.equal(MOCKS.length,4);assert.equal(CHEAT_SHEET_SECTIONS.length,17);
 assert.equal(new Set(COURSE_NOTES.map(x=>x.id)).size,COURSE_NOTES.length);
@@ -19,12 +19,12 @@ e.set('J2','=IF(F2<=$K$2,"Met","Over")');for(let r=3;r<=17;r++)e.fill('J2','J'+r
 assert.equal(100/400,0.25);assert.equal(75/250,0.30);
 assert.equal(D.modules.length,16);assert.deepEqual(D.modules.map(x=>x.lesson),Array.from({length:16},(_,i)=>i+1));
 for(const x of D.modules)assert(LAB_PACKS.some(p=>p.id===x.lab));
-for(const x of D.teacherSets){assert(COURSE_NOTES.some(n=>n.id===x.note));assert(fs.existsSync('resources/week-'+x.week+'.pdf'));if(x.lab)assert(LAB_PACKS.some(p=>p.id===x.lab));assert(x.criteria.length>=3);}
+for(const x of D.teacherSets){assert(COURSE_NOTES.some(n=>n.id===x.note));assert(SOURCE_DOCUMENTS['resources/week-'+x.week+'.pdf']);if(x.lab)assert(LAB_PACKS.some(p=>p.id===x.lab));assert(x.criteria.length>=3);}
 assert.deepEqual([...new Set(D.teacherSets.map(x=>x.week))].sort(),[1,2,3,4,5]);
 const hist=D.graphs.find(x=>x.id==='histogram'),times=EXAM_PRACTICE_ROWS.map(r=>r[4]);assert.deepEqual(hist.values,[0,20,40,60].map(lo=>times.filter(v=>v>=lo&&v<lo+20).length));
 assert.equal(D.graphs.find(g=>g.id==='pie').values.reduce((a,b)=>a+b,0),100);
 for(const q of D.graphCases){assert(q.allowed.includes(q.preferred));for(const id of q.allowed)assert(D.graphs.some(g=>g.id===id));}
-for(const name of ['Book1.xlsx','Summary.xltx','Best case in scenario manager.png','AVG case in scenario manager.png','Worst case in scenario manager.png','Scenario SUmmary.png'])assert(fs.existsSync('resources/teacher-dashboard/'+name));
+for(const name of ['Book1.xlsx','Summary.xltx','Best case in scenario manager.png','AVG case in scenario manager.png','Worst case in scenario manager.png','Scenario SUmmary.png'])assert(fs.existsSync('resources/teacher-dashboard/'+name)||SOURCE_DOCUMENTS['resources/teacher-dashboard/'+name]);
 const html=fs.readFileSync('index.html','utf8');for(const path of [...html.matchAll(/(?:src|href)="([^"#?]+)(?:\?[^"]*)?"/g)].map(m=>m[1]))if(!path.startsWith('http'))assert(fs.existsSync(path),path);
 assert(fs.readFileSync('app.js','utf8').includes("KEY='enterprise-studio-v1'"));
 console.log('Exam preparation: mock formulas/marks, dataset/chart consistency, boundary changes, histogram bins, source assets and all 16 lesson links passed.');

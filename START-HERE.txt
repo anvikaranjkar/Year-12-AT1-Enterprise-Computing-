@@ -1,48 +1,31 @@
-START HERE: GITHUB AND VERCEL
+ENTERPRISE STUDY STUDIO 2.4.0
 
-1. Double-click Enterprise-Study-Vercel.zip to extract it.
-2. Open the extracted enterprise-study-vercel folder.
-3. In GitHub choose Add file > Upload files.
-4. Drag ALL CONTENTS of enterprise-study-vercel into GitHub: index.html,
-   app.js, the other files, and the resources folder.
-   Do not upload Enterprise-Study-Vercel.zip itself.
-5. Commit. In the repository root you should see index.html directly.
-6. Import the repository into Vercel. Framework: Other. Build command: blank.
-   Output directory: . (repository root). Deploy.
+This is the small upload package with highlighting and saved booklets.
+All included files are under 100 KB. Large original PDFs/screenshots open
+through source links in your ChatGPT account. The interactive study app,
+notes, quizzes, four mocks and seven spreadsheet workbooks are included.
 
-This package preserves the complete study app, notes, spreadsheet engine,
-lessons, quizzes, flashcards, mocks and progress tools. It omits the five
-large weekly PDF duplicates and links to the original Canvas lessons.
-The assessment PDF, spreadsheet tutorial, glossary and dashboard archive
-remain included. An upright compressed Booklet 2 reading copy is included too. Keep the original full study ZIP for offline weekly PDFs.
+TO STUDY
+Extract the ZIP, then open index.html inside the extracted folder.
+Read README.md if your browser needs a local server to save progress.
 
-GitHub browser upload reference:
-https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github
-Vercel build settings:
-https://vercel.com/docs/builds
+TO UPLOAD
+1. Use a new empty GitHub repository for this lightweight version.
+2. Choose Add file > Upload files.
+3. Drag all FILES and the resources FOLDER from this package into GitHub.
+4. index.html must appear at the repository root.
+5. Do not upload the ZIP itself or the larger parent project folder.
+6. In Vercel import the repository. Choose Other. Leave Build Command
+   empty. Use . as Output Directory if an override is required.
 
-BOOKLET 2 AND SPREADSHEET UPGRADE (v2.1.0)
-90 exercises, six workbooks, linked sheets, formatting, validation,
-conditional formatting, pivots, slicers, five chart types, undo/redo,
-record forms, what-if driver testing and fresh timed challenges.
-Before replacing a deployed app, export a progress backup from Resources.
-Upload all extracted contents, including the new lab-tools.js,
-lab-curriculum.js and formula-guide.js files.
+HIGHLIGHTING AND BOOKLETS
+Open Learn & revise, the cheat sheet or a graph guide. Select text,
+choose a highlight colour and destination, then press Save highlight.
+Save whole note keeps a complete text copy. Open Booklets in the sidebar
+to create collections, annotate, search, move items, export and print.
 
-Open Booklet 2 companion for 11 new detailed lessons, interactive chart,
-outlier, OLAP and forecast experiments, plus 23 written practice prompts.
-The app now contains 23 note modules, 72 quiz questions and 56 flashcards.
-Include all booklet-*.js files and resources/booklet-two.pdf when uploading.
+Before changing your study URL, use Resources > Export progress backup.
+Highlights and booklets are included in that backup. They are saved on
+this browser only, so keep a backup to protect them or move devices.
 
-TEACHER GUIDANCE UPDATE (v2.2.0)
-Open Test priorities from the home page or Learn & revise.
-New Mock3 follows the teacher’s practical skill guidance:80 minutes,40 marks.
-Use Excel for the CSV, then record formulas, results and written answers.
-Exam-Predictions.html is a lightweight readable guide with the new paper.
-Predictions are evidence-based practice, not access to the actual test.
-Include exam-focus.js and resources/teacher-focus-dataset.csv when updating.
-
-LATEST: 2.3.0
-Use Exam preparation in the sidebar. Start with the cheat sheet, practise graph choices and Part A explanations, then Teacher practice and Mock 4. The five weekly PDF sources are included.
-
-New spreadsheet workbook: Statistics and Horizontal Lookups (10 checkpoints).
+The site is prepared for deployment, not already deployed to your account.
