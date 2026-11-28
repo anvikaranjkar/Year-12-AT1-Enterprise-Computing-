@@ -1,4 +1,4 @@
-window.STUDY_PLAN=StudyWeek.days.map(d=>[d.title,d.enterprise.map(t=>t.title).join(' · '),d.milestone,'Enterprise / Economics / English']);
+window.STUDY_PLAN=StudyWeek.days.map(d=>[d.title,d.enterprise.map(t=>t.title).join(' · '),d.milestone,'Enterprise Computing']);
 window.LAB_ROWS=[["D101","North","Mon","Express",12,2,5],["D102","South","Mon","Standard",28,4,4],["D103","North","Tue","Standard",20,1,4],["D104","South","Tue","Standard",35,6,4],["D105","North","Wed","Express",15,3,5],["D106","West","Wed","Standard",18,2,4],["D107","South","Thu","Standard",25,5,4],["D108","West","Thu","Express",25,4,5],["D109","North","Fri","Express",13,2,5],["D110","South","Fri","Standard",20,7,4],["D111","North","Sat","Standard",18,3,4],["D112","West","Sat","Express",19,3,5]];
 window.LAB_LESSONS=[
   {

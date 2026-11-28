@@ -1,6 +1,6 @@
 {
   "name": "enterprise-study-studio",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "private": true,
   "scripts": {
     "test": "node engine-tests.cjs && node lab-tests.cjs && node booklet-tests.cjs && node exam-focus-tests.cjs && node exam-coach-tests.cjs && node statistics-tests.cjs && node saved-booklets-tests.cjs && node study-week-tests.cjs"

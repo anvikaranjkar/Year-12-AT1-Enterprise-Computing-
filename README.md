@@ -1,4 +1,4 @@
-# Enterprise Study Studio 2.5.0
+# Enterprise Study Studio 2.5.1
 
 A Year 12 Enterprise Computing study website for HSC 2027. This lightweight package retains every interactive study feature while keeping large source documents outside the Git upload.
 
@@ -15,29 +15,27 @@ For GitHub and Vercel:
 
 This package is prepared for deployment. It has not been pushed to your GitHub repository or deployed to your Vercel account.
 
-## Your new seven-day timetable
+## Your seven-day Enterprise timetable
 
-The website now starts on **Saturday 28 November 2026** and schedules the planned Enterprise preparation to finish on **Friday 4 December 2026**. The old 18-day checklist is archived separately rather than mapped onto unrelated new tasks. Quiz results, notes, spreadsheet work, booklets and mock attempts remain intact.
+The website starts on **Saturday 28 November 2026** and schedules Enterprise preparation to finish on **Friday 4 December 2026**.
 
-| Date | Enterprise | Economics | English | Focused study total |
-| --- | ---: | ---: | ---: | ---: |
-| Sat 28 Nov | 90 min | 60 min | 60 min | 3 h 30 min |
-| Sun 29 Nov | 120 min | 60 min | 60 min | 4 h |
-| Mon 30 Nov | 90 min | 45 min | 45 min | 3 h |
-| Tue 1 Dec | 90 min | 45 min | 45 min | 3 h |
-| Wed 2 Dec | 100 min | 40 min | 40 min | 3 h |
-| Thu 3 Dec | 90 min | 45 min | 45 min | 3 h |
-| Fri 4 Dec | 110 min | 35 min | 35 min | 3 h |
+| Date | Enterprise focus | Study time |
+| --- | --- | ---: |
+| Sat 28 Nov | Foundations, cells and references | 90 min |
+| Sun 29 Nov | Filtering, cleaning and conditional summaries | 120 min |
+| Mon 30 Nov | Rules, exact lookups and statistics | 90 min |
+| Tue 1 Dec | Graphs, dashboards and recommendations | 90 min |
+| Wed 2 Dec | First full mock and marking | 100 min |
+| Thu 3 Dec | Repair gaps, systems and responsible data | 90 min |
+| Fri 4 Dec | Second full mock and final checks | 110 min |
 
-Total: 11 h 30 min Enterprise, 5 h 30 min Economics and 5 h 30 min English. Add ten-minute breaks between subjects. The 80-minute mocks remain continuous. These are planning estimates, not a promise that every learner will finish a task in that time.
+Total: **11 h 30 min**, about 90–120 minutes a day. Add short breaks between learning/practice blocks; keep the 80-minute mocks continuous. These are planning estimates.
 
-Open **Seven-day plan** for dated daily tasks, subject checkboxes, minute budgets, teaching-note links, a week overview, progress, carry-over reminders and export/print. You can change the start date, choose which subject comes first and set your actual class/task dates. The finish remains seven inclusive days after the selected start; an early assessment date raises a warning. The start date stays anchored after reload, rather than moving forward every day.
+Open **Seven-day plan** for dated tasks, completion checkboxes, teaching-note and workbook links, progress, carry-over reminders and export/print. Change the start or Enterprise class date as needed. The finish remains seven inclusive days after the selected start; an early assessment date raises a warning. The start stays anchored after reload.
 
-Enterprise runs from foundations through filtering, summaries, rules/lookups, graphs and dashboard recommendations, then Mock 3, targeted repair and Mock 4. All 25 teaching modules are linked across the relevant days. The full exercise library remains available; the week focuses on assessed skills and uses changed examples to check independence, rather than requiring every optional exercise.
+All 25 teaching modules are linked across the relevant days. The full exercise library remains available; the plan focuses on assessed skills and changed examples rather than requiring every optional exercise.
 
-Economics blocks prepare the Brazil/Indonesia globalisation case study, growth/development/sustainability evaluation, evidence bank, annotated bibliography and a five-minute plan plus 40-minute essay. The supplied notification gives **10 December 2026** as its date and requires at least five appropriate sources excluding the Dixon textbook, each with a 50–100-word annotation. English blocks prioritise daily unfamiliar-text short answers alongside An Imaginary Life evidence and analytical writing. The English date is left blank because the supplied learning notes do not establish it here.
-
-New week checks are part of the existing progress backup. If you restore an old backup, the new timetable is added without treating old day numbers as completed new sessions.
+Completed Enterprise checkboxes from the previous version remain completed. Learned notes, spreadsheet work, quiz results, booklets and mock attempts are also retained. The original 18-day checklist remains separately archived. Progress backups include the current plan; restoring an earlier backup adds the current timetable without treating old day numbers as completed new tasks.
 
 ## Highlight notes and make booklets
 
@@ -54,7 +52,7 @@ Booklets are saved on this browser only. They do not sync between devices. Clear
 
 ## Included study material
 
-- 25 teaching modules, a 58-term glossary and a dated seven-day plan shared with Economics and English.
+- 25 teaching modules, a 58-term glossary and a dated seven-day Enterprise plan.
 - Seven spreadsheet workbooks with 100 checkpoints, a spreadsheet-style simulator, generated unseen challenges, formula help, filtering, sorting, conditional calculations, exact lookups, references, cleaning, validation, pivots, charts and what-if practice.
 - 72 knowledge checks and 56 flashcards.
 - Four original 80-minute, 40-mark mocks: Section A 24 marks, Section B 16 marks, with datasets, charts, dashboard evidence, saved responses and self-marking guides.

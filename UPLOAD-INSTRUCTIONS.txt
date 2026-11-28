@@ -18,7 +18,8 @@ Those full offline copies still contain the large source documents.
 In Vercel: import the new GitHub repository, Framework Other, Build Command
 empty, Output Directory . if required. No secrets or API keys are needed.
 
-SEVEN-DAY UPDATE
-Open Seven-day plan: 28 November to 4 December 2026. Enterprise,
-Economics and English each have daily tasks and protected study blocks.
-Existing progress and saved booklets remain compatible.
+SEVEN-DAY ENTERPRISE PLAN
+Open Seven-day plan: 28 November to 4 December 2026.
+Study Enterprise for 90–120 minutes a day, with daily tasks, workbook
+links and two full mocks. Completed Enterprise tasks and saved booklets
+remain compatible.

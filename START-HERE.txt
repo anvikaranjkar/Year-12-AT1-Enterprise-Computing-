@@ -1,4 +1,4 @@
-ENTERPRISE STUDY STUDIO 2.5.0
+ENTERPRISE STUDY STUDIO 2.5.1
 
 This is the small upload package with highlighting and saved booklets.
 All included files are under 100 KB. Large original PDFs/screenshots open
@@ -30,7 +30,8 @@ this browser only, so keep a backup to protect them or move devices.
 
 The site is prepared for deployment, not already deployed to your account.
 
-SEVEN-DAY UPDATE
-Open Seven-day plan: 28 November to 4 December 2026. Enterprise,
-Economics and English each have daily tasks and protected study blocks.
-Existing progress and saved booklets remain compatible.
+SEVEN-DAY ENTERPRISE PLAN
+Open Seven-day plan: 28 November to 4 December 2026.
+Study Enterprise for 90–120 minutes a day, with daily tasks, workbook
+links and two full mocks. Completed Enterprise tasks and saved booklets
+remain compatible.
