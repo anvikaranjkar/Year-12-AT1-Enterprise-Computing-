@@ -1,0 +1,36 @@
+const assert=require('node:assert/strict'),fs=require('node:fs');
+global.window=global;
+for(const f of ['study-week','content-notes','practice-content','learning-data','lab-curriculum','booklet-lab','booklet-data','statistics-practice','exam-focus','cheat-sheet-data','exam-coach-data','justification-mock'])require('./'+f+'.js');
+const W=StudyWeek;
+assert.equal(W.days.length,7);assert.equal(STUDY_PLAN.length,7);
+assert.equal(W.START_DATE,'2026-11-28');assert.equal(W.addDays(W.START_DATE,6),'2026-12-04');
+assert.deepEqual(W.days.map((d,i)=>W.addDays(W.START_DATE,i)),['2026-11-28','2026-11-29','2026-11-30','2026-12-01','2026-12-02','2026-12-03','2026-12-04']);
+assert.equal(W.today(new Date('2026-11-27T13:30:00Z')),'2026-11-28','Today follows Sydney, not the UTC host');
+assert.equal(W.today(new Date('2026-11-28T00:30:00Z')),'2026-11-28');
+assert.equal(W.addDays('2026-12-29',6),'2027-01-04');assert.equal(W.addDays('2028-02-28',1),'2028-02-29');
+assert(!W.validDate('2026-02-30'));assert(!W.validDate(''));assert(!W.validDate('2026-2-03'));assert.throws(()=>W.addDays('invalid',6));
+const old={startDate:'2026-11-18',days:[0,1,2,17],notes:['excel-basics'],lab:{completed:{'dispatch-d01':true}},quiz:{q1:{lastCorrect:true}},mocks:{dispatch:{finished:true}},savedBooklets:{books:[{id:'b',title:'My formulas'}],items:[{id:'x',text:'Keep this highlight'}]}};
+const original=structuredClone(old);assert(W.ensure(old));assert.equal(old.startDate,'2026-11-28');
+for(const key of ['days','notes','lab','quiz','mocks','savedBooklets'])assert.deepEqual(old[key],original[key],key+' must survive the schedule update');
+assert.deepEqual(old.studyWeek.legacyDays,[0,1,2,17]);assert.equal(old.studyWeek.legacyStartDate,'2026-11-18');assert.deepEqual(old.studyWeek.checks,{});
+assert.equal(W.summary(old.studyWeek).enterpriseDone,0,'Old day indices must not falsely complete the new week');
+old.studyWeek.startDate='2026-11-29';old.studyWeek.englishDate='2026-12-08';assert.equal(W.ensure(old),false);assert.equal(old.studyWeek.startDate,'2026-11-29','A user edit survives reload');
+const state={};W.ensure(state);const p=state.studyWeek,s=W.summary(p);
+assert.deepEqual(s.totals,{enterprise:690,economics:330,english:330});assert.equal(s.total,1350);assert.equal(s.remaining,1350);
+assert.deepEqual(W.days.map(W.totalMinutes),[210,240,180,180,180,180,180]);
+const keys=[];for(const d of W.days)for(const subject of W.SUBJECTS){assert(d[subject].length>=2);for(const t of d[subject]){assert(Number.isInteger(t.minutes)&&t.minutes>0);assert(t.title&&t.detail);keys.push(W.key(d,subject,t));}}
+assert.equal(new Set(keys).size,keys.length,'Stable task keys are unique');
+assert.equal(W.focusIndex(p,'2026-11-28'),0);assert.equal(W.focusIndex(p,'2026-11-30'),2);assert.equal(W.focusIndex(p,'2026-12-06'),0,'Late unfinished work remains visible after the week');
+const first=W.days[0];for(const t of first.enterprise)p.checks[W.key(first,'enterprise',t)]=true;
+assert.equal(W.summary(p).enterpriseDone,1);assert.equal(W.summary(p).allDone,0,'Enterprise completion does not falsely complete the other subjects');
+assert.equal(W.summary(p).remaining,1260);
+const carry=W.carryOver(p,'2026-11-30');assert(carry.every(x=>x.day.id==='d2'));assert.equal(carry.reduce((n,x)=>n+x.task.minutes,0),120);
+const restored=JSON.parse(JSON.stringify(state));assert.equal(W.ensure(restored),false);assert.deepEqual(restored.studyWeek.checks,p.checks,'New task checks survive backup and restore');
+for(const key of keys)p.checks[key]=true;assert.equal(W.summary(p).allDone,7);assert.equal(W.summary(p).enterpriseDone,7);assert.equal(W.summary(p).remaining,0);assert.equal(W.focusIndex(p,'2026-12-04'),-1);
+assert.equal(W.days.filter(d=>d.mock).length,2);for(const d of W.days.filter(d=>d.mock)){const m=MOCKS.find(m=>m.id===d.mock);assert(m,d.mock);assert(d.enterprise.some(t=>t.minutes===80),'Do not shrink a full mock to fit the week');for(const section of ['A','B'])assert.equal(m.questions.filter(q=>q.section===section).reduce((n,q)=>n+q.marks,0),section==='A'?24:16);}
+const noteIds=new Set(W.days.flatMap(d=>d.notes));assert.equal(noteIds.size,25);for(const id of noteIds)assert(COURSE_NOTES.some(n=>n.id===id),'Missing teaching note: '+id);
+assert(LAB_PACKS.some(p=>p.id==='statistics'));assert.equal(W.deadlineWarning(p,'2026-12-07').length,0);p.englishDate='2026-12-02';assert(W.deadlineWarning(p,'2026-12-07')[0].startsWith('English'));
+const txt=W.exportText(p,'2026-12-07');assert(txt.includes('4 Dec 2026'));assert(txt.includes('Economics: 2026-12-10'));assert(txt.includes('English: 2026-12-02'));assert(txt.includes('[x] 80 min'));
+const html=fs.readFileSync('index.html','utf8');assert(html.indexOf('study-week.js')<html.indexOf('learning-data.js'),'Load the planner before its data compatibility alias');
+const app=fs.readFileSync('app.js','utf8');assert(app.includes("['plan','◷','Seven-day plan']"));assert(!app.includes('18 days. One skill at a time.'));assert(app.includes("KEY='enterprise-studio-v1'"));
+console.log('Seven-day plan: Sydney dates, 28 Nov–4 Dec timeline, subject budgets, two full mocks, all 25 note links, legacy-progress migration, independent checklists, backup retention and deadline warnings passed.');

@@ -1,5 +1,5 @@
 const assert=require('node:assert/strict'),fs=require('node:fs');
-global.window=global;
+global.window=global;require('./study-week.js');
 for(const f of ['resource-links','content-notes','practice-content','sheet-engine','learning-data','lab-curriculum','statistics-practice','booklet-lab','booklet-data','exam-focus','cheat-sheet-data','exam-coach-data','justification-mock'])require('./'+f+'.js');
 const D=EXAM_COACH_DATA,m=MOCKS.find(x=>x.id==='justify-retail');
 assert.equal(MOCKS.length,4);assert.equal(CHEAT_SHEET_SECTIONS.length,17);

@@ -1,5 +1,5 @@
 const assert=require('node:assert/strict');
-global.window=global;
+global.window=global;require('./study-week.js');
 for(const f of ['content-notes','practice-content','learning-data','lab-curriculum','booklet-lab','booklet-data','booklet-view'])require('./'+f+'.js');
 const B=BookletMath;
 assert.equal(COURSE_NOTES.length,23);

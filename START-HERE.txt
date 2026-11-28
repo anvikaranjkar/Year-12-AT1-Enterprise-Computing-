@@ -1,4 +1,4 @@
-ENTERPRISE STUDY STUDIO 2.4.0
+ENTERPRISE STUDY STUDIO 2.5.0
 
 This is the small upload package with highlighting and saved booklets.
 All included files are under 100 KB. Large original PDFs/screenshots open
@@ -29,3 +29,8 @@ Highlights and booklets are included in that backup. They are saved on
 this browser only, so keep a backup to protect them or move devices.
 
 The site is prepared for deployment, not already deployed to your account.
+
+SEVEN-DAY UPDATE
+Open Seven-day plan: 28 November to 4 December 2026. Enterprise,
+Economics and English each have daily tasks and protected study blocks.
+Existing progress and saved booklets remain compatible.

@@ -1,4 +1,4 @@
-const assert=require('node:assert/strict');global.window=global;
+const assert=require('node:assert/strict');global.window=global;require('./study-week.js');
 for(const f of ['sheet-engine','learning-data','lab-curriculum','statistics-practice','lab-tools'])require('./'+f+'.js');
 const e=new SheetEngine({A1:'Score',A2:2,A3:4,A4:4,A5:4,A6:5,A7:5,A8:7,A9:9,B1:'Label',B2:'',B3:0,B4:'Text',B5:'=""',J1:'Quiz1',K1:'Quiz2',L1:'Project',J2:100,K2:100,L2:50});
 let n=0;const test=(f,x)=>{e.set('Z1',f);const a=e.get('Z1');if(typeof x==='number')assert(Math.abs(a-x)<1e-10,f+': '+a);else assert.equal(a,x,f);n++;};

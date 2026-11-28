@@ -1,4 +1,4 @@
-const assert=require('node:assert/strict');global.window=global;
+const assert=require('node:assert/strict');global.window=global;require('./study-week.js');
 for(const f of ['content-notes','practice-content','learning-data','lab-curriculum','booklet-lab','booklet-data','sheet-engine','exam-focus'])require('./'+f+'.js');
 const m=MOCKS.find(m=>m.id==='teacher-focus'),r=m.rows;
 assert.equal(MOCKS.length,3);assert.equal(COURSE_NOTES.length,24);
